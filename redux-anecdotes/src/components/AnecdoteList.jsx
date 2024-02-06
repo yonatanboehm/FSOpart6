@@ -17,9 +17,9 @@ const AnecdoteList = () => {
   const sortedAnecdotes = [...filteredAnecdotes].sort((a, b) => b.votes - a.votes)
   const notification = useSelector(state => state.notification)
   
-  const voteAnecdote = (id, content) => {
-    dispatch(vote(id))
-    dispatch(notify(content))
+  const voteAnecdote = (anecdote) => {
+    dispatch(vote(anecdote))
+    dispatch(notify(anecdote.content))
     setTimeout(() => {
       if (notification === '') {
         dispatch(clear())
@@ -35,7 +35,7 @@ const AnecdoteList = () => {
           </div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => voteAnecdote(anecdote.id, anecdote.content)}>vote</button>
+            <button onClick={() => voteAnecdote(anecdote)}>vote</button>
           </div>
         </div>
       )}
