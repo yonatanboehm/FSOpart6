@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { vote, setAnecdotes } from '../reducers/anecdoteReducer'
+import { vote, initializeAnecdotes } from '../reducers/anecdoteReducer'
 import { notify, clear } from '../reducers/notificationReducer'
 import { useEffect } from 'react'
 import anecdoteServices from '../services/anecdotes'
@@ -8,9 +8,7 @@ const AnecdoteList = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    anecdoteServices.getAll().then(anecdotes => {
-      dispatch(setAnecdotes(anecdotes))
-    })
+    dispatch(initializeAnecdotes())
   }, [])
 
   const anecdotesList = useSelector(state => state.anecdotes)
@@ -18,18 +16,16 @@ const AnecdoteList = () => {
   const filteredAnecdotes = anecdotesList.filter(anecdote => anecdote.content.includes(filter))
   const sortedAnecdotes = [...filteredAnecdotes].sort((a, b) => b.votes - a.votes)
   const notification = useSelector(state => state.notification)
-
+  
   const voteAnecdote = (id, content) => {
     dispatch(vote(id))
     dispatch(notify(content))
     setTimeout(() => {
-      console.log(notification)
-      if (notification == '') {
+      if (notification === '') {
         dispatch(clear())
       }
     }, 5000)
   }
-  
   return (
     <div>
       {sortedAnecdotes.map(anecdote =>

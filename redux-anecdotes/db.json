@@ -39,6 +39,11 @@
       "id": "e769",
       "content": "testing new anecdote",
       "votes": 0
+    },
+    {
+      "id": "f867",
+      "content": "Testing creating note with thunk",
+      "votes": 0
     }
   ]
 }
