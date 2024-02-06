@@ -9,7 +9,7 @@ const Notification = () => {
     borderWidth: 1,
     marginBottom: 5
   }
-  if (notification === null) {
+  if (notification == '') {
     return null
   }
   return (
